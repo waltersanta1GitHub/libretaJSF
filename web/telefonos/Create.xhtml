@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TelefonosCreateDlg" widgetVar="TelefonosCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateTelefonosTitle}">
+            <h:form id="TelefonosCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{telefonosController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateTelefonosLabel_telefonosPK_idTelefonos}" for="telefonosPK_idTelefonos" />
+                        <p:inputText id="telefonosPK_idTelefonos" value="#{telefonosController.selected.telefonosPK.idTelefonos}" title="#{bundle.CreateTelefonosTitle_telefonosPK_idTelefonos}" required="true" requiredMessage="#{bundle.CreateTelefonosRequiredMessage_telefonosPK_idTelefonos}"/>
+                        <p:outputLabel value="#{bundle.CreateTelefonosLabel_telefono}" for="telefono" />
+                        <p:inputText id="telefono" value="#{telefonosController.selected.telefono}" title="#{bundle.CreateTelefonosTitle_telefono}" />
+                        <p:outputLabel value="#{bundle.CreateTelefonosLabel_ubicacion}" for="ubicacion" />
+                        <p:inputText id="ubicacion" value="#{telefonosController.selected.ubicacion}" title="#{bundle.CreateTelefonosTitle_ubicacion}" />
+                        <p:outputLabel value="#{bundle.CreateTelefonosLabel_habilitado}" for="habilitado" />
+                        <p:selectBooleanCheckbox id="habilitado" value="#{telefonosController.selected.habilitado}" required="true" requiredMessage="#{bundle.EditTelefonosRequiredMessage_habilitado}"/>
+                        <p:outputLabel value="#{bundle.CreateTelefonosLabel_persona}" for="persona" />
+                        <p:selectOneMenu id="persona" value="#{telefonosController.selected.persona}" required="true" requiredMessage="#{bundle.EditTelefonosRequiredMessage_persona}">
+                            <f:selectItems value="#{personaController.itemsAvailableSelectOne}"
+                                           var="personaItem"
+                                           itemValue="#{personaItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{telefonosController.create}" value="#{bundle.Save}" update="display,:TelefonosListForm:datalist,:growl" oncomplete="handleSubmit(args,'TelefonosCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TelefonosCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

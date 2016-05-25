@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CorreoselectronicosCreateDlg" widgetVar="CorreoselectronicosCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateCorreoselectronicosTitle}">
+            <h:form id="CorreoselectronicosCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{correoselectronicosController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateCorreoselectronicosLabel_correoselectronicosPK_idCorreosElectronicos}" for="correoselectronicosPK_idCorreosElectronicos" />
+                        <p:inputText id="correoselectronicosPK_idCorreosElectronicos" value="#{correoselectronicosController.selected.correoselectronicosPK.idCorreosElectronicos}" title="#{bundle.CreateCorreoselectronicosTitle_correoselectronicosPK_idCorreosElectronicos}" required="true" requiredMessage="#{bundle.CreateCorreoselectronicosRequiredMessage_correoselectronicosPK_idCorreosElectronicos}"/>
+                        <p:outputLabel value="#{bundle.CreateCorreoselectronicosLabel_correoElectronico}" for="correoElectronico" />
+                        <p:inputText id="correoElectronico" value="#{correoselectronicosController.selected.correoElectronico}" title="#{bundle.CreateCorreoselectronicosTitle_correoElectronico}" />
+                        <p:outputLabel value="#{bundle.CreateCorreoselectronicosLabel_habilitado}" for="habilitado" />
+                        <p:selectBooleanCheckbox id="habilitado" value="#{correoselectronicosController.selected.habilitado}" required="true" requiredMessage="#{bundle.EditCorreoselectronicosRequiredMessage_habilitado}"/>
+                        <p:outputLabel value="#{bundle.CreateCorreoselectronicosLabel_persona}" for="persona" />
+                        <p:selectOneMenu id="persona" value="#{correoselectronicosController.selected.persona}" required="true" requiredMessage="#{bundle.EditCorreoselectronicosRequiredMessage_persona}">
+                            <f:selectItems value="#{personaController.itemsAvailableSelectOne}"
+                                           var="personaItem"
+                                           itemValue="#{personaItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{correoselectronicosController.create}" value="#{bundle.Save}" update="display,:CorreoselectronicosListForm:datalist,:growl" oncomplete="handleSubmit(args,'CorreoselectronicosCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="CorreoselectronicosCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

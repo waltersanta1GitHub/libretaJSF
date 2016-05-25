@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DireccionesCreateDlg" widgetVar="DireccionesCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateDireccionesTitle}">
+            <h:form id="DireccionesCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{direccionesController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateDireccionesLabel_direccionesPK_idDirecciones}" for="direccionesPK_idDirecciones" />
+                        <p:inputText id="direccionesPK_idDirecciones" value="#{direccionesController.selected.direccionesPK.idDirecciones}" title="#{bundle.CreateDireccionesTitle_direccionesPK_idDirecciones}" required="true" requiredMessage="#{bundle.CreateDireccionesRequiredMessage_direccionesPK_idDirecciones}"/>
+                        <p:outputLabel value="#{bundle.CreateDireccionesLabel_direccion}" for="direccion" />
+                        <p:inputText id="direccion" value="#{direccionesController.selected.direccion}" title="#{bundle.CreateDireccionesTitle_direccion}" />
+                        <p:outputLabel value="#{bundle.CreateDireccionesLabel_habilitado}" for="habilitado" />
+                        <p:selectBooleanCheckbox id="habilitado" value="#{direccionesController.selected.habilitado}" required="true" requiredMessage="#{bundle.EditDireccionesRequiredMessage_habilitado}"/>
+                        <p:outputLabel value="#{bundle.CreateDireccionesLabel_persona}" for="persona" />
+                        <p:selectOneMenu id="persona" value="#{direccionesController.selected.persona}" required="true" requiredMessage="#{bundle.EditDireccionesRequiredMessage_persona}">
+                            <f:selectItems value="#{personaController.itemsAvailableSelectOne}"
+                                           var="personaItem"
+                                           itemValue="#{personaItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{direccionesController.create}" value="#{bundle.Save}" update="display,:DireccionesListForm:datalist,:growl" oncomplete="handleSubmit(args,'DireccionesCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="DireccionesCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

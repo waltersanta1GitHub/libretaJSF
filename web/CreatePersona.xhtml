@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PersonaCreateDlg" widgetVar="PersonaCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreatePersonaTitle}">
+            <h:form id="PersonaCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{personaController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreatePersonaLabel_idPersona}" for="idPersona" />
+                        <p:inputText id="idPersona" value="#{personaController.selected.idPersona}" title="#{bundle.CreatePersonaTitle_idPersona}" required="true" requiredMessage="#{bundle.CreatePersonaRequiredMessage_idPersona}"/>
+                        <p:outputLabel value="#{bundle.CreatePersonaLabel_nombre}" for="nombre" />
+                        <p:inputText id="nombre" value="#{personaController.selected.nombre}" title="#{bundle.CreatePersonaTitle_nombre}" required="true" requiredMessage="#{bundle.CreatePersonaRequiredMessage_nombre}"/>
+                        <p:outputLabel value="#{bundle.CreatePersonaLabel_edad}" for="edad" />
+                        <p:inputText id="edad" value="#{personaController.selected.edad}" title="#{bundle.CreatePersonaTitle_edad}" />
+                        <p:outputLabel value="#{bundle.CreatePersonaLabel_sexo}" for="sexo" />
+                        <p:inputText id="sexo" value="#{personaController.selected.sexo}" title="#{bundle.CreatePersonaTitle_sexo}" />
+                        <p:outputLabel value="#{bundle.CreatePersonaLabel_documento}" for="documento" />
+                        <p:inputText id="documento" value="#{personaController.selected.documento}" title="#{bundle.CreatePersonaTitle_documento}" required="true" requiredMessage="#{bundle.CreatePersonaRequiredMessage_documento}"/>
+                        <p:outputLabel value="#{bundle.CreatePersonaLabel_habilitado}" for="habilitado" />
+                        <p:selectBooleanCheckbox id="habilitado" value="#{personaController.selected.habilitado}" required="true" requiredMessage="#{bundle.EditPersonaRequiredMessage_habilitado}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{personaController.create}" value="#{bundle.Save}" update="display,:PersonaListForm:datalist,:growl" oncomplete="handleSubmit(args,'PersonaCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PersonaCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

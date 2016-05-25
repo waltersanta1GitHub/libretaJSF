@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 20/05/2016 09:28:53 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="pojos.com.Direcciones" table="direcciones" catalog="listacontactosdb" optimistic-lock="version">
+        <composite-id name="id" class="pojos.com.DireccionesId">
+            <key-property name="idDirecciones" type="int">
+                <column name="idDirecciones" />
+            </key-property>
+            <key-property name="personaIdPersona" type="int">
+                <column name="Persona_idPersona" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="persona" class="pojos.com.Persona" update="false" insert="false" fetch="select">
+            <column name="Persona_idPersona" not-null="true" />
+        </many-to-one>
+        <property name="direccion" type="string">
+            <column name="Direccion" length="150" />
+        </property>
+        <property name="habilitado" type="boolean">
+            <column name="habilitado" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>
